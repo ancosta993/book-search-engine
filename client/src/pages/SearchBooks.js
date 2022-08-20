@@ -80,7 +80,7 @@ const SearchBooks = () => {
       // }
 
       // if book successfully saves to user's account, save book id to state
-      if (!data){
+      if (!data.saveBook.user.username){
         setSavedBookIds([...savedBookIds, bookToSave.bookId]);
       }
     } catch (err) {

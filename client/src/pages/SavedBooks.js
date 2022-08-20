@@ -74,7 +74,7 @@ const SavedBooks = () => {
         variables: {bookId:bookId}
       });
 
-      const updatedUser = data.user
+      const updatedUser = data.removeBook.user;
 
       // const updatedUser = await response.json();
       setUserData(updatedUser);
@@ -86,9 +86,9 @@ const SavedBooks = () => {
   };
 
   // if data isn't here yet, say so
-  if (!userDataLength) {
-    return <h2>LOADING...</h2>;
-  }
+  // if (!userDataLength) {
+  //   return <h2>LOADING...</h2>;
+  // }
 
   return (
     <>

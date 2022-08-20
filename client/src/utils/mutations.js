@@ -45,6 +45,7 @@ export const REMOVE_BOOK = gql`
          user{
             _id
             username
+            email
             bookCount
             savedBooks
          }
