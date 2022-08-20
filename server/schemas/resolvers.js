@@ -17,12 +17,12 @@ const resolvers = {
    },
 
    Mutation: {
-      addUser: async(parents, args) => {
+      addUser: async (parent, args) => {
          const user = await User.create(args);
-         const token = signToken(user);
+         const token = signToken(user)
          return {token, user};
       },
-      login: async(parent, {email, password}) => {
+      loginUser: async(parent, {email, password}) => {
          const user = await User.findOne({email});
 
          if(!user) {
@@ -53,10 +53,10 @@ const resolvers = {
       // removeBook will only take the bookId as arg
       removeBook: async(parent, {bookId}, context) => {
          if(context.user) {
-            const updatedUser = User.findOneandUpdate(
+            const updatedUser = User.findOneAndUpdate(
                {_id:context.user._id},
-               {$pull:{savedBooks:bookId}},
-               {new:true, runValidators:true}
+               {$pull:{savedBooks:{bookId}}},
+               {new:true}
             )
             return updatedUser;
          }
@@ -64,4 +64,6 @@ const resolvers = {
          throw new AuthenticationError('You need to be logged in!');
       }
    }
-}
+};
+
+module.exports = resolvers;
