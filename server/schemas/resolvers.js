@@ -46,8 +46,21 @@ const resolvers = {
                {new:true, runValidators: true}
             )
 
-            return updatedThought;
+            return updatedUser;
          }
+         throw new AuthenticationError('You need to be logged in!');
+      },
+      // removeBook will only take the bookId as arg
+      removeBook: async(parent, {bookId}, context) => {
+         if(context.user) {
+            const updatedUser = User.findOneandUpdate(
+               {_id:context.user._id},
+               {$pull:{savedBooks:bookId}},
+               {new:true, runValidators:true}
+            )
+            return updatedUser;
+         }
+
          throw new AuthenticationError('You need to be logged in!');
       }
    }

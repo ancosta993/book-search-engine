@@ -4,17 +4,12 @@ const {gql} = require('apollo-server-express'); // import the gql template funct
 // create our typeDefs
 const typeDefs = gql`
    type Book {
-      _Id: ID
       bookId: String
-      authors:[Authors]
+      authors:[String]
       description:String
       image:String
       link:String
       title:String!
-   }
-
-   type Authors {
-      name: String
    }
    
    type User {
@@ -48,6 +43,7 @@ const typeDefs = gql`
       login(email: String! password: String!): Auth
       addUser(username: String! email:String! password:String!): Auth
       saveBook(content: BookInfo!):User
+      removeBook(content: BookInfo!): User
    }
 `;
 
