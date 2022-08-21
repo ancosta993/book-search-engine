@@ -6,7 +6,7 @@ const resolvers = {
    Query: {
       me: async(parent, args, context) => {
          if (context.user){
-            const userData = await User.findById(
+            const userData = await User.findOne(
                {_id: context.user._id}
             ).select('-_v -password')
             return userData
@@ -40,7 +40,7 @@ const resolvers = {
       },
       saveBook: async(parent, args, context) => {
          if(context.user){
-            const updatedUser = User.findOneAndUpdate(
+            const updatedUser = await User.findOneAndUpdate(
                {_id: context.user._id},
                {$push:{savedBooks:args}},
                {new:true, runValidators: true}
@@ -53,7 +53,7 @@ const resolvers = {
       // removeBook will only take the bookId as arg
       removeBook: async(parent, {bookId}, context) => {
          if(context.user) {
-            const updatedUser = User.findOneAndUpdate(
+            const updatedUser = await User.findOneAndUpdate(
                {_id:context.user._id},
                {$pull:{savedBooks:{bookId}}},
                {new:true}
